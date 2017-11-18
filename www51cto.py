@@ -47,6 +47,7 @@ def login(username, password):
         f.write(resp_home.content)
         f.close()
     if nickname:
+        print("登陆成功")
         return client
     else:
         return None
@@ -131,7 +132,7 @@ def postlog(client, title, htmlcontent, tags):
            'Content-Disposition: form-data; name="tid"\r\n\
            \r\n\r\n' \
            '------WebKitFormBoundaryXiouIq6AoO73YSj1--'
-    resp_post = client.post(addblog_url, data=data, headers=headers)
+    resp_post = client.post(addblog_url, data=data.encode("gb2312"), headers=headers)
     selector = etree.HTML(resp_post.text)
     article_url = selector.xpath('//a[@class="btn" and @target="_blank"]/@href')
     if article_url:
